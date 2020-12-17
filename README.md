@@ -5,7 +5,7 @@
 ##### Fall 2020
 
 ### Introduction
-All of Us is interested in Fitbit data to be able to have another set of measurements of participants’ heath, and in order to look at the impact of activity level on health. AoU currently has some Fitbit data, but I was working on setting up a more sustainable pipeline for repeated use.
+All of Us is interested in Fitbit data to be able to have another set of measurements of participants’ heath, and in order to look at the impact of activity level on health. AoU currently has some Fitbit data, but I was working on setting up a more sustainable pipeline for repeated use. This pipeline uses the [Fitbit API](https://dev.fitbit.com/build/reference/web-api/) to interact with participants' devices.
 
 ### Linkage
 This pipeline links participants with their own Fitbit data. For only the first time a participant's data is linked, they must follow a link through the portal to give authorization. At any point after that, the participant may revoke access, and the API calls with their credentials will no longer work.

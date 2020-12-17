@@ -1,6 +1,8 @@
 # Fitbit data linkage
 
 ### Data pipeline for Fitbit data in NiFi
+#### Aviva Weinbaum, Civic Digital Fellow
+##### Fall 2020
 
 ### Introduction
 All of Us is interested in Fitbit data to be able to have another set of measurements of participants’ heath, and in order to look at the impact of activity level on health. AoU currently has some Fitbit data, but I was working on setting up a more sustainable pipeline for repeated use.

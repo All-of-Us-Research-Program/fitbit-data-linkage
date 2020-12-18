@@ -11,7 +11,11 @@ All of Us is interested in Fitbit data to be able to have another set of measure
 This pipeline links participants with their own Fitbit data. For only the first time a participant's data is linked, they must follow a link through the portal to give authorization. At any point after that, the participant may revoke access, and the API calls with their credentials will no longer work.
 
 ### Models
-The Fitbit data is stored in 4 tables, each with a different kind of data collected. See `fitbit.py` for schemas.
+The Fitbit data is stored in 4 tables, each with a different kind of data collected. See `fitbit.py` for schemas. Data collected:  
+- Daily activity summary
+- Daily heart rate summary
+- Intraday heart rate
+- Intraday steps 
 
 ### NiFi Pipeline
 ##### Overview:
@@ -25,12 +29,7 @@ This process group reads in a file with a participant’s refresh token and prev
 2. get latest sync  
 This process group queries the API for the user’s profile in order to get the latest sync. The latest refresh token and the latest sync (as previous_sync) are written to a file for a future flow.
 3. get fitbit data from API  
-A script divides the time between the previous sync and latest sync into <24 hour slices, and the API is invoked 4 times to fetch the 4 data types:
-    - Daily activity summary
-    - Daily heart rate summary
-    - Intraday heart rate
-    - Intraday steps  
-The data is cleaned up and an ID is added for the record to be added to the database.
+A script divides the time between the previous sync and latest sync into <24 hour slices, and the API is invoked 4 times to fetch the 4 data types. The data is cleaned up and an ID is added for the record to be added to the database.
 4. check if distinct entry  
 This process group checks if the entry is already in the database by executing sql statements. For the daily summaries, a script queries the database, and will delete the existing entry if the current record has updated values for the same day. Duplicate entries are routed to failure.
 5. write to database  
@@ -46,11 +45,11 @@ NOTE: Check if distinct entry and writing to the database cannot both be running
 ### Files:
 
 NiFi template:
-- Fitbit.xml
+- `Fitbit.xml`
 
 Model:
-- fitbit.py
+- `fitbit.py`
 
-Scripts:
-- db_script.groovy
-- fitbit_date_script.groovy
+Scripts for NiFi pipeline:
+- `db_script.groovy`
+- `fitbit_date_script.groovy`
